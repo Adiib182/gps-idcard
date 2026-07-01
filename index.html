@@ -5,17 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ID Card Tenant - Green Pramuka Square</title>
   
-  <!-- PWA Meta Tags -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#047857">
   <link rel="apple-touch-icon" href="https://i.ibb.co.com/kbrqvzD/Logo-GPS.png">
   
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .animate-fade-in { animation: fadeIn 0.5s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
 </head>
 <body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen p-3 sm:p-4">
 
-  <!-- Halaman Pencarian ID -->
-  <div id="search-box" class="w-full max-w-sm bg-white p-6 rounded-xl shadow-md mb-6 transition-all border-t-4 border-emerald-600">
+  <div id="install-banner" class="w-full max-w-sm bg-yellow-50 border border-yellow-200 p-4 rounded-xl shadow-sm mb-4 hidden flex-col items-center justify-center animate-fade-in">
+    <p class="text-xs text-yellow-800 text-center mb-2 font-medium">Instal aplikasi Portal Tenant GPS untuk akses yang lebih cepat dan mudah.</p>
+    <button id="btn-install" class="bg-yellow-500 text-yellow-950 px-6 py-2 rounded-full font-bold text-sm shadow hover:bg-yellow-400 active:scale-95 transition-all">
+      📱 Instal Aplikasi
+    </button>
+  </div>
+
+  <div id="search-box" class="w-full max-w-sm bg-white p-6 rounded-xl shadow-md mb-6 transition-all border-t-4 border-emerald-600 block">
     <div class="flex justify-center mb-4">
       <img src="https://i.ibb.co.com/kbrqvzD/Logo-GPS.png" alt="Logo Green Pramuka Square" class="h-12 object-contain">
     </div>
@@ -31,7 +40,6 @@
     </div>
   </div>
 
-  <!-- Tampilan ID Card Digital -->
   <div id="id-card" class="w-full max-w-sm bg-gradient-to-br from-teal-800 via-emerald-700 to-green-900 rounded-2xl shadow-2xl overflow-hidden text-white hidden relative border border-emerald-500/30">
     <div class="absolute bottom-0 left-0 -mb-4 -ml-4 w-32 h-32 bg-emerald-300 opacity-20 rounded-full blur-2xl"></div>
     <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-yellow-300 opacity-10 rounded-full blur-xl"></div>
@@ -69,7 +77,6 @@
     </div>
   </div>
 
-  <!-- Form Registrasi -->
   <div id="register-box" class="w-full max-w-sm bg-white p-5 sm:p-6 rounded-xl shadow-md mb-6 hidden border-t-4 border-emerald-600">
     <h2 class="text-xl font-bold text-center mb-4 text-gray-800">Registrasi Tenant GPS</h2>
     <form id="form-daftar" onsubmit="prosesDaftar(event)">
@@ -85,7 +92,6 @@
     <div id="reg-msg-container" class="mt-4 p-3 rounded-lg hidden text-center text-sm font-medium"><p id="reg-msg"></p></div>
   </div>
 
-  <!-- Dashboard Login & Admin ... (Sama seperti sebelumnya, menyesuaikan warna jika perlu) -->
   <div id="admin-login-box" class="w-full max-w-sm bg-white p-6 rounded-xl shadow-md mb-6 hidden border-t-4 border-gray-800">
     <h2 class="text-xl font-bold text-center mb-4 text-gray-800">Akses Pengelola GPS</h2>
     <input type="password" id="admin-password" placeholder="Masukkan Password Admin" class="w-full p-3 border border-gray-300 rounded-lg mb-3 focus:outline-none focus:ring-2 focus:ring-gray-800 text-center text-base">
@@ -94,14 +100,14 @@
     <p id="admin-login-msg" class="text-red-500 text-sm mt-2 hidden text-center"></p>
   </div>
 
-  <div id="admin-dashboard" class="w-full max-w-4xl bg-white p-4 sm:p-6 rounded-xl shadow-md hidden">
+  <div id="admin-dashboard" class="w-full max-w-4xl bg-white p-4 sm:p-6 rounded-xl shadow-md hidden border-t-4 border-gray-800">
     <div class="flex justify-between items-center mb-6">
-      <h2 class="text-lg sm:text-2xl font-bold text-gray-800">Data Tenant & ID Card</h2>
-      <button onclick="logoutAdmin()" class="bg-red-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded text-xs sm:text-sm hover:bg-red-600 transition active:scale-95">Keluar</button>
+      <h2 class="text-lg sm:text-2xl font-bold text-gray-800">Data Tenant & ID Card GPS</h2>
+      <button onclick="logoutAdmin()" class="bg-red-500 text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded text-xs sm:text-sm hover:bg-red-600 transition active:scale-95 shadow-sm">Keluar</button>
     </div>
     
     <div class="mb-4 relative">
-      <input type="text" id="search-admin" placeholder="Cari berdasarkan ID, Nama, atau Tenant..." class="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm transition" onkeyup="filterDataAdmin()">
+      <input type="text" id="search-admin" placeholder="Cari berdasarkan ID, Nama, atau Tenant..." class="w-full p-3 pl-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm transition" onkeyup="filterDataAdmin()">
       <span class="absolute left-3 top-3.5 text-gray-400">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
       </span>
@@ -120,7 +126,7 @@
           </tr>
         </thead>
         <tbody id="tabel-admin-body">
-          <tr><td colspan="6" class="text-center py-8 text-purple-600 animate-pulse font-medium">Memuat data dari sistem...</td></tr>
+          <tr><td colspan="6" class="text-center py-8 text-emerald-600 animate-pulse font-medium">Memuat data dari sistem...</td></tr>
         </tbody>
       </table>
     </div>
@@ -130,47 +136,78 @@
   </div>
 
   <div id="edit-modal" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center z-50 p-4">
-    <div class="bg-white p-5 sm:p-6 rounded-xl w-full max-w-md shadow-2xl relative">
-      <h2 class="text-lg sm:text-xl font-bold mb-4">Edit Data Tenant</h2>
+    <div class="bg-white p-5 sm:p-6 rounded-xl w-full max-w-md shadow-2xl relative border-t-4 border-gray-800">
+      <h2 class="text-lg sm:text-xl font-bold mb-4 text-gray-800">Edit Data Tenant</h2>
       <input type="hidden" id="edit-id">
       
       <div class="space-y-3">
         <div>
           <label class="text-xs font-semibold text-gray-600">Nama Lengkap</label>
-          <input type="text" id="edit-nama" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-purple-500 outline-none">
+          <input type="text" id="edit-nama" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
         </div>
         <div>
           <label class="text-xs font-semibold text-gray-600">Nama Tenant</label>
-          <input type="text" id="edit-tenant" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-purple-500 outline-none">
+          <input type="text" id="edit-tenant" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
         </div>
         <div>
           <label class="text-xs font-semibold text-gray-600">Jabatan</label>
-          <input type="text" id="edit-jabatan" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-purple-500 outline-none">
+          <input type="text" id="edit-jabatan" class="w-full p-2.5 border border-gray-300 rounded text-sm focus:ring-2 focus:ring-emerald-500 outline-none">
         </div>
       </div>
       
       <div class="flex space-x-2 mt-5">
-        <button id="btn-simpan-edit" onclick="simpanEdit()" class="flex-1 bg-purple-600 text-white p-2.5 rounded-lg font-semibold hover:bg-purple-700 active:scale-95 transition text-sm">Simpan</button>
+        <button id="btn-simpan-edit" onclick="simpanEdit()" class="flex-1 bg-gray-800 text-white p-2.5 rounded-lg font-semibold hover:bg-gray-900 active:scale-95 transition text-sm">Simpan</button>
         <button onclick="tutupEdit()" class="flex-1 bg-gray-200 text-gray-700 p-2.5 rounded-lg font-semibold hover:bg-gray-300 active:scale-95 transition text-sm">Batal</button>
       </div>
     </div>
   </div>
 
   <script>
-    // ==========================================
-    // JANGAN LUPA: MASUKKAN URL WEB APP GAS ANDA DI BAWAH INI
-    // ==========================================
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbx06znKssD1JJxJxAbW9LGijNHTPzWD05odFnBk7F5bSH5T-bW0lIg7zUUYHRTLezvvHA/exec"; 
+    // URL WEB APP GOOGLE APPS SCRIPT
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbx06znKssD1JJxJxAbW9LGijNHTPzWD05odFnBk7F5bSH5T-bW0lIg7zUUYHRTLezvvHA/exec";
 
-    // Registrasi Service Worker untuk PWA
+    // --- PWA INSTALLATION LOGIC ---
+    let deferredPrompt;
+    const installBanner = document.getElementById('install-banner');
+    const installBtn = document.getElementById('btn-install');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+      if (!isStandalone) {
+        installBanner.classList.remove('hidden');
+        installBanner.classList.add('flex');
+      }
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt !== null) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installBanner.classList.add('hidden');
+          installBanner.classList.remove('flex');
+        }
+        deferredPrompt = null;
+      }
+    });
+
+    window.addEventListener('appinstalled', () => {
+      installBanner.classList.add('hidden');
+      installBanner.classList.remove('flex');
+      deferredPrompt = null;
+    });
+
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('Service Worker berhasil didaftarkan:', reg.scope))
-          .catch(err => console.error('Pendaftaran Service Worker gagal:', err));
+          .then(reg => console.log('Service Worker terdaftar:', reg.scope))
+          .catch(err => console.error('Gagal daftar Service Worker:', err));
       });
     }
-    
+
+    // --- FETCH TO GAS LOGIC ---
     async function fetchGAS(action, payload) {
       try {
         const response = await fetch(GAS_URL, {
@@ -185,12 +222,14 @@
       }
     }
 
+    // --- GLOBAL VARIABLES ---
     let globalAdminPassword = "";
     let allAdminData = [];
     let filteredAdminData = [];
     let currentPage = 1;
     const rowsPerPage = 20;
 
+    // --- NAVIGATION LOGIC ---
     function pindahTampilan(idTujuan) {
       document.getElementById('search-box').classList.add('hidden');
       document.getElementById('id-card').classList.add('hidden');
@@ -206,6 +245,7 @@
       }
     }
 
+    // --- SEARCH TENANT LOGIC ---
     function prosesCari() {
       const id = document.getElementById('id-input').value;
       const errorMsg = document.getElementById('error-msg');
@@ -228,7 +268,7 @@
             document.getElementById('card-status').innerText = hasil.status.toUpperCase();
             
             document.getElementById('card-status').className = (hasil.status.toLowerCase() === 'aktif') ? 
-              "font-bold px-2 py-0.5 rounded text-xs bg-green-500 text-white" : "font-bold px-2 py-0.5 rounded text-xs bg-red-500 text-white";
+              "font-bold px-2 py-0.5 rounded text-xs bg-emerald-500 text-white" : "font-bold px-2 py-0.5 rounded text-xs bg-red-500 text-white";
 
             if (hasil.fotoData) {
               document.getElementById('card-photo').src = hasil.fotoData;
@@ -249,6 +289,7 @@
         });
     }
 
+    // --- REGISTRATION LOGIC ---
     function prosesDaftar(e) {
       e.preventDefault(); 
       const btn = document.getElementById('btn-submit-reg');
@@ -300,6 +341,7 @@
         });
     }
     
+    // --- ADMIN LOGIC ---
     function prosesLoginAdmin() {
       const pwInput = document.getElementById('admin-password').value;
       const btn = document.getElementById('btn-login-admin');
@@ -309,7 +351,6 @@
       if(!pwInput) return;
       
       btn.innerText = "Memverifikasi..."; btn.disabled = true;
-      
       fetchGAS('cekLoginAdmin', { password: pwInput })
         .then(function(valid) {
           btn.innerText = "Masuk Dashboard"; btn.disabled = false;
@@ -337,8 +378,7 @@
     }
 
     function muatDataAdmin() {
-      document.getElementById('tabel-admin-body').innerHTML = '<tr><td colspan="6" class="text-center py-8 text-purple-600 animate-pulse font-medium">Memuat data dari sistem...</td></tr>';
-      
+      document.getElementById('tabel-admin-body').innerHTML = '<tr><td colspan="6" class="text-center py-8 text-emerald-600 animate-pulse font-medium">Memuat data dari sistem...</td></tr>';
       fetchGAS('getSemuaData', { password: globalAdminPassword })
         .then(function(hasil) {
           if(hasil.sukses) { 
@@ -381,13 +421,13 @@
       const startIndex = (currentPage - 1) * rowsPerPage;
       const endIndex = startIndex + rowsPerPage;
       const dataHalaman = filteredAdminData.slice(startIndex, endIndex);
-
+      
       dataHalaman.forEach(item => {
         const isAktif = item.status.toLowerCase() === 'aktif';
-        const badgeColor = isAktif ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700';
+        const badgeColor = isAktif ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700';
         const toggleBtnText = isAktif ? 'Nonaktifkan' : 'Aktifkan';
         const toggleAction = isAktif ? 'nonaktifkan' : 'aktifkan';
-        const toggleColor = isAktif ? 'text-orange-500 hover:text-orange-700' : 'text-green-600 hover:text-green-800';
+        const toggleColor = isAktif ? 'text-orange-500 hover:text-orange-700' : 'text-emerald-600 hover:text-emerald-800';
 
         const row = document.createElement('tr');
         row.className = "bg-white border-b hover:bg-gray-50 transition";
@@ -424,13 +464,13 @@
 
       const btnPrev = document.createElement('button');
       btnPrev.innerHTML = '&laquo;';
-      btnPrev.className = `px-3 py-1.5 rounded-md text-sm font-medium border ${currentPage === 1 ? 'bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-purple-600 border-gray-300 hover:bg-purple-50'}`;
+      btnPrev.className = `px-3 py-1.5 rounded-md text-sm font-medium border ${currentPage === 1 ?
+        'bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-gray-800 border-gray-300 hover:bg-gray-100'}`;
       btnPrev.onclick = () => { if (currentPage > 1) { currentPage--; renderHalaman(); } };
       container.appendChild(btnPrev);
 
       let startPage = Math.max(1, currentPage - 1);
       let endPage = Math.min(totalPages, currentPage + 1);
-
       if (startPage > 1) {
         container.appendChild(buatTombolHalaman(1));
         if (startPage > 2) {
@@ -455,7 +495,8 @@
 
       const btnNext = document.createElement('button');
       btnNext.innerHTML = '&raquo;';
-      btnNext.className = `px-3 py-1.5 rounded-md text-sm font-medium border ${currentPage === totalPages ? 'bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-purple-600 border-gray-300 hover:bg-purple-50'}`;
+      btnNext.className = `px-3 py-1.5 rounded-md text-sm font-medium border ${currentPage === totalPages ?
+        'bg-gray-50 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-white text-gray-800 border-gray-300 hover:bg-gray-100'}`;
       btnNext.onclick = () => { if (currentPage < totalPages) { currentPage++; renderHalaman(); } };
       container.appendChild(btnNext);
     }
@@ -464,9 +505,9 @@
       const btn = document.createElement('button');
       btn.innerText = num;
       if (num === currentPage) {
-        btn.className = 'px-3 py-1.5 rounded-md text-sm font-bold bg-purple-600 text-white border border-purple-600 shadow-sm';
+        btn.className = 'px-3 py-1.5 rounded-md text-sm font-bold bg-gray-800 text-white border border-gray-800 shadow-sm';
       } else {
-        btn.className = 'px-3 py-1.5 rounded-md text-sm font-medium bg-white text-gray-700 border border-gray-300 hover:bg-purple-50 hover:text-purple-600 transition';
+        btn.className = 'px-3 py-1.5 rounded-md text-sm font-medium bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 transition';
         btn.onclick = () => { currentPage = num; renderHalaman(); };
       }
       return btn;
@@ -480,7 +521,6 @@
 
       if (konfirmasi) {
         document.getElementById('tabel-admin-body').innerHTML = `<tr><td colspan="6" class="text-center py-8 text-orange-500 font-medium">Memproses pembaruan sistem...</td></tr>`;
-        
         fetchGAS('prosesAksiAdmin', { password: globalAdminPassword, aksi: aksi, id: id, dataEdit: null })
           .then(function(hasil) {
             alert(hasil.pesan); 
@@ -516,16 +556,16 @@
         tenant: document.getElementById('edit-tenant').value,
         jabatan: document.getElementById('edit-jabatan').value
       };
-
+      
       fetchGAS('prosesAksiAdmin', { password: globalAdminPassword, aksi: 'edit', id: id, dataEdit: dataEdit })
         .then(function(hasil) {
-          btn.innerText = "Simpan Perubahan"; btn.disabled = false;
+          btn.innerText = "Simpan"; btn.disabled = false;
           tutupEdit(); 
           alert(hasil.pesan); 
           muatDataAdmin(); 
         })
         .catch(function(err) {
-          btn.innerText = "Simpan Perubahan"; btn.disabled = false;
+          btn.innerText = "Simpan"; btn.disabled = false;
           alert("Gagal menyimpan perubahan.");
         });
     }
