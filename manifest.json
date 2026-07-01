@@ -1,6 +1,6 @@
 {
   "name": "ID Card Tenant Green Pramuka Square",
-  "short_name": "Tenant GPS",
+  "short_name": "ID Card GPS",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#f3f4f6",
