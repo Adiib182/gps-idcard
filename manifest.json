@@ -1,0 +1,21 @@
+{
+  "name": "ID Card Tenant Green Pramuka Square",
+  "short_name": "Tenant GPS",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f3f4f6",
+  "theme_color": "#047857",
+  "description": "Sistem ID Card Digital untuk Tenant Mall Green Pramuka Square.",
+  "icons": [
+    {
+      "src": "https://i.ibb.co.com/kbrqvzD/Logo-GPS.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.ibb.co.com/kbrqvzD/Logo-GPS.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
